@@ -1,215 +1,157 @@
-# ✨ My Fedora Linux Noble Setup Guide (Post-Installation)
+# 🚀 Первоначальная настройка Fedora Linux
 
-<p align="center">
-  <img src="src/assets/logo.png" alt="Fedora Setup Logo - Nord Style" width="250"/>
+<p align = 'center'>
+  <img src = 'src/assets/logo.png' alt = 'Fedora Setup Logo - Nord Style' width = '250'/>
 </p>
 
-<div align="center">
-
-[![Fedora](https://img.shields.io/badge/Fedora-42+-blue.svg?style=for-the-badge&logo=fedora)](https://getfedora.org/)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg?style=for-the-badge)](https://github.com/yourusername/fedora-setup/graphs/commit-activity)
-
+<div align = 'center'>
+  
+  [![Maintenance](https://img.shields.io/badge/github-repo-blue?logo=github)](https://github.com/wz790/Fedora-Noble-Setup)
 </div>
 
 ---
 
-## 👋 Hey there!
+# 👋 Привет!
 
-Since you're here, you've probably just installed Fedora and now you're staring at a new desktop wondering, "What next?" I've been there. Fedora requires some pushing after a fresh install :) That's why I put together this guide, which is basically everything I gathered from multiple sources when I switched to Fedora.
-
-This is not an official guide. It's just me sharing what I used, and some settings or personal preferences that you can feel free to skip. Just read everything before copy past.
-
-### 💡 Quick heads up about commands:
-
-- When you see `sudo` at the start, that means "run as admin" it'll ask for your password
-- The `-y` flag just means "yes to everything" so you don't have to keep pressing enter
-- Copy-paste is your friend, but **always read what you're about to run first**
+> Раз ты читаешь это, значит ты, скорее всего, только что установил Fedora и теперь смотришь на новый рабочий стол и думаешь: «А что дальше?».
+> 
+> Fedora после чистой установки довольно сырая и требует настройки. В этом руководстве собраны базовые команды для настройки новой системы. Это руководство будет переодически обновляться.
+>
+> Это не официальное руководство. Это мой опыт — то, что я использовую, и мои личные предпочтения, некоторые пункты ты можешь спокойно пропустить.
 
 ---
 
-## 📋 Table of Contents
+# 💡 Подсказки
 
-<details>
-<summary>Click to expand full guide</summary>
-
-- [🔥 First Things First](#-first-things-first)
-  - [RPM Fusion - The Good Stuff](#rpm-fusion---the-good-stuff)
-  - [Updates (Boring but Important)](#updates-boring-but-important)
-  - [Firmware Updates](#firmware-updates)
-  - [Give Your Computer a Name](#give-your-computer-a-name)
-- [📦 Getting More Software](#-getting-more-software)
-  - [Flathub Setup](#flathub-setup)
-- [🎮 Graphics Drivers](#-graphics-drivers)
-  - [NVIDIA (The Tricky One)](#nvidia-the-tricky-one)
-  - [AMD & Intel (The Easy Ones)](#amd--intel-the-easy-ones)
-- [🎵 Making Media Work](#-making-media-work)
-  - [Video Codecs (So Everything Plays)](#video-codecs-so-everything-plays)
-  - [Hardware Acceleration](#hardware-acceleration)
-  - [Firefox Video Fix](#firefox-video-fix)
-- [🔧 Useful Stuff](#-useful-stuff)
-  - [Archive Support](#archive-support)
-  - [Microsoft Fonts (Unfortunately Still Needed)](#microsoft-fonts-unfortunately-still-needed)
-  - [AppImage Support](#appimage-support)
-  - [Flatpak Auto-Updates](#flatpak-auto-updates)
-- [⚡ Making Things Faster](#-making-things-faster)
-  - [Faster Boots](#faster-boots)
-  - [Better Battery Life](#better-battery-life)
-  - [Dual Boot Time Fix](#dual-boot-time-fix)
-- [🔒 Security Stuff](#-security-stuff)
-  - [Encrypted DNS (Optional but Cool)](#encrypted-dns-optional-but-cool)
-- [💾 Backup Your Stuff](#-backup-your-stuff)
-  - [System Snapshots](#system-snapshots)
-  - [Personal Files](#personal-files)
-- [🎮 Gaming Setup](#-gaming-setup)
-  - [Steam and Gaming](#steam-and-gaming)
-  - [Lutris](#lutris)
-  - [MangoHud](#mangohud)
-- [🌟 Apps I Actually Use](#-apps-i-actually-use)
-  - [Browsers](#browsers)
-  - [Development](#development)
-  - [Containers](#containers)
-  - [Multimedia](#multimedia)
-  - [Office Work](#office-work)
-  - [System Tools](#system-tools)
-- [🖥️ Desktop Environment](#️-desktop-environment)
-  - [GNOME](#gnome)
-  - [KDE Plasma](#kde-plasma)
-- [🧹 Keeping Things Clean](#-keeping-things-clean)
-  - [System Cleanup](#system-cleanup)
-</details>
+> - `sudo` в начале — запуск с правами администратора, система попросит пароль.
+>
+> - Флаг `-y` — согласиться со всем во время выполнение команды, чтобы не приходилось каждый раз соглашаться вручную.
 
 ---
 
-## 🔥 First Things First
+# 📋 Навигация по руководству
 
-### RPM Fusion - The Good Stuff
+### 1. [Обновление системы и пакетов](1-обновление-системы-и-пакетов)
+  - [Установка VPN](#установка-vpn)
+  - [Установка RPM Fusion](#установка-rpm-fusion)
+  - [Обновление всех пакетов](#обновление-всех-пакетов)
+  - [Обновление прошивки](#обновление-прошивки)
+  - [Даем компьютеру название](#обновление-прошивки)
+---
 
-Okay, first thing Fedora ships pretty bare-bones because of legal reasons. [RPM](https://rpmfusion.org/) Fusion is where all the actually useful stuff lives (codecs, drivers, etc.). You want this.
+# 1. Обновление системы и пакетов
+
+## Установка VPN
+
+> Начнем с того, что в России просто могут не работать все зеркала, поэтому после установки системы, я устанавливаю и использую [AmneziaVPN](https://github.com/amnezia-vpn/amnezia-client), после чего подключаюсь к бесплатному серверу, этого достаточно, чтобы настроить систему, можно использовать любой сервис.
+
+## Установка RPM Fusion
+
+> Следующим шагом, устанавливаем RPM Fufion.
+>
+> RPM Fusion — это community-поддерживаемый репозиторий, который добавляет пракеты, которые Fedora и Red Hat не могут распространять из-за лицензий и юридических ограничений. Сюда обычно входят: мультимедийные кодеки, проприетарные драйвера (NVIDIA), закрытое или «юридически сложное» ПО.
+
+###### Получаем открытые репозитории
 
 ```bash
-# Get the free repository (most stuff you need)
+# Получаем открытые репозитории
+
 sudo dnf install -y \
   https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+```
 
-# Get the nonfree repository (NVIDIA drivers, some codecs)
+###### Получаем закрытые репозитории
+
+```bash
 sudo dnf install -y \
   https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+```
 
-# Update everything so it all plays nice together
+###### Обновляем все
+
+```bash
 sudo dnf group upgrade core -y
+```
+
+```bash
 sudo dnf check-update
 ```
 
-<details>
-<summary>🤔 What's the difference between free and nonfree?</summary>
+## Обновление всех пакетов
 
-- **Free**: Open source software that's legally redistributable
-- **Nonfree**: Proprietary software (NVIDIA drivers, some codecs) that can't be shipped with Fedora due to licensing
-
-</details>
-
----
-
-### Updates (Boring but Important)
-
-Yeah, I know, updates are boring. But seriously, do this first. Fresh installs always have outdated packages.
+> Переодически обновляйте все пакеты.
 
 ```bash
-# Update everything
 sudo dnf update -y
 ```
+
+## Обновление прошивки
+
+> Возможно у оборудования есть более новая прошивка. Это важно для таких вещей, как WiFi и время работы батареи.
+
+###### Смотрим, что можно обновить
+
 ```bash
-# If it updated the kernel, reboot
-sudo reboot
+sudo fwupdmgr get-devices
 ```
 
-> 💡 **Tip**: Make a habit of running `sudo dnf update` weekly or monthly :).
-
----
-
-### Firmware Updates
-
-Your hardware probably has newer firmware available. This actually matters for things like WiFi and battery life.
+###### Обновляем базу данных прошивки
 
 ```bash
-# See what can be updated
-sudo fwupdmgr get-devices
-
-# Refresh the firmware database
 sudo fwupdmgr refresh --force
+```
 
-# Check for updates
+###### Проверяем наличие обновлений
+
+```bash
 sudo fwupdmgr get-updates
+```
 
-# Apply them
+###### Применяем их
+
+```bash
 sudo fwupdmgr update
 ```
 
-> ⚠️ **Note**: After firmware updates you need a reboot. Just do it.
-
----
-
-### Give Your Computer a Name
-
-This is purely cosmetic but makes you feel more at home. Pick something fun!
+###### Перезагружаемся
 
 ```bash
-# Replace with whatever you want
-sudo hostnamectl set-hostname hungry-beast
+sudo reboot
+```
+
+## Даем компьютеру название
+
+> Можете оставить fedora, как в моей команде, либо придумать что-то свое.
+
+```bash
+sudo hostnamectl set-hostname fedora
 ```
 
 ---
 
-## 📦 Getting More Software
+# 📦 Установка дополнительного ПО
 
-### Flathub Setup
+- ## Flathub Setup
 
-Fedora comes with a neutered version of [Flatpak](https://flatpak.org/). [Flathub](https://flathub.org/) is where the actual apps are.
+> Fedora поставляется с урезанной версией Flatpak, исправим это
+
+###### Удалим урезанную версию
 
 ```bash
-# Remove the limited Fedora repo
 flatpak remote-delete fedora
 ```
-Here i will let you decide there are a few options. Choose the one that suits you best. Personally, I would choose the first option, but you can decide for yourself here some info from [flathub](https://docs.flathub.org/docs/for-users/installation#remove-subsets).
 
-#### Option 1: Full Repository:
-
-Get access to everything Flathub (that include apps that are not officially maintained by their developers):
+###### Установим все репозитории
 
 ```bash
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 ```
 
-#### Option 2: Verified Apps Only:
+--- 
 
-If you want only apps maintained by their actual developers go with this:
+# 🎮 Graphics Drivers
 
-```bash
-flatpak remote-add --if-not-exists --subset=verified flathub https://flathub.org/repo/flathub.flatpakrepo
-```
-
-**Note:** Some popular apps won't show up because they're packaged by the community.
-
-#### Option 3: Open Source Only:
-
-This for only free and open source software:
-
-```bash
-flatpak remote-add --if-not-exists --subset=floss flathub https://flathub.org/repo/flathub.flatpakrepo
-```
-
-#### Option 4: Verified + Open Source:
-
-The most restrictive option it include only apps that are both verified by developers and open source:
-
-```bash
-flatpak remote-add --if-not-exists --subset=verified_floss flathub https://flathub.org/repo/flathub.flatpakrepo
-```
----
-
-## 🎮 Graphics Drivers
-
-### NVIDIA (The Tricky One)
+- ## NVIDIA (The Tricky One)
 
 > ⚠️ **WARNING**: NVIDIA on Linux is complicated for now this works most of the time, but if you have issues, welcome to the club.
 
